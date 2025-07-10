@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Все объявления</h2>
+
+<!-- Форма поиска и фильтров -->
+<form method="get" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ search_query }}">
+        </div>
+        <div class="col-md-3">
+            <select name="category" class="form-select">
+                <option value="">Все категории</option>
+                <option value="electronics" {% if request.GET.category == 'electronics' %}selected{% endif %}>Электроника</option>
+                <option value="clothes" {% if request.GET.category == 'clothes' %}selected{% endif %}>Одежда</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="condition" class="form-select">
+                <option value="">Любое состояние</option>
+                <option value="new" {% if request.GET.condition == 'new' %}selected{% endif %}>Новый</option>
+                <option value="used" {% if request.GET.condition == 'used' %}selected{% endif %}>Б/у</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Применить</button>
+        </div>
+    </div>
+</form>
+
+<!-- Список объявлений -->
+<div class="row">
+    {% for ad in page_obj %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if ad.image_url %}
+                <img src="{{ ad.image_url }}" class="card-img-top" alt="{{ ad.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ ad.title }}</h5>
+                <p class="card-text">{{ ad.description|truncatechars:100 }}</p>
+                <p class="text-muted">Категория: {{ ad.category }}</p>
+                <a href="{% url 'ad_detail' ad.id %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">Объявления не найдены.</div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+        <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

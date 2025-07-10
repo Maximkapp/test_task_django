@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card mb-4">
+    {% if ad.image_url %}
+        <img src="{{ ad.image_url }}" class="card-img-top" alt="{{ ad.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h2 class="card-title">{{ ad.title }}</h2>
+        <p class="card-text">{{ ad.description }}</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Категория:</strong> {{ ad.category }}</li>
+            <li class="list-group-item"><strong>Состояние:</strong> {{ ad.get_condition_display }}</li>
+            <li class="list-group-item"><strong>Автор:</strong> {{ ad.user.username }}</li>
+            <li class="list-group-item"><strong>Дата:</strong> {{ ad.created_at|date:"d.m.Y H:i" }}</li>
+        </ul>
+    </div>
+    {% if user.is_authenticated and user != ad.user %}
+        <div class="card-footer">
+            <a href="{% url 'send_proposal' ad.id %}" class="btn btn-success">Предложить обмен</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Список предложений (только для автора объявления) -->
+{% if user == ad.user and proposals %}
+<h4>Предложения обмена:</h4>
+<div class="list-group">
+    {% for proposal in proposals %}
+    <div class="list-group-item">
+        <h5>От: {{ proposal.ad_sender.user.username }}</h5>
+        <p>{{ proposal.comment }}</p>
+        <p>Предлагает: <a href="{% url 'ad_detail' proposal.ad_sender.id %}">{{ proposal.ad_sender.title }}</a></p>
+        <div class="mt-2">
+            <span class="badge bg-secondary">{{ proposal.get_status_display }}</span>
+            {% if proposal.status == 'pending' %}
+                <a href="{% url 'update_proposal_status' proposal.id 'accepted' %}" class="btn btn-sm btn-success">Принять</a>
+                <a href="{% url 'update_proposal_status' proposal.id 'rejected' %}" class="btn btn-sm btn-danger">Отклонить</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

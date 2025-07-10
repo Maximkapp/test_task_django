@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Предложить обмен для: {{ ad_receiver.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Ваше объявление для обмена:</label>
+            {{ form.ad_sender }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Комментарий:</label>
+            {{ form.comment }}
+        </div>
+        <button type="submit" class="btn btn-success">Отправить</button>
+        <a href="{% url 'ad_detail' ad_receiver.id %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
