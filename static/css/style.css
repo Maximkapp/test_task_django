@@ -1,0 +1,68 @@
+.ad-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.ad-meta {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.ad-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.no-image {
+    background: #f5f5f5;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    border-radius: 8px;
+}
+
+.owner-actions {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.proposals-section {
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.proposal {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.proposal.accepted {
+    background-color: rgba(0, 255, 0, 0.05);
+    border-color: #4CAF50;
+}
+
+.proposal.rejected {
+    background-color: rgba(255, 0, 0, 0.05);
+    border-color: #f44336;
+}
+
+.proposal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.proposal-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}

@@ -1,5 +1,5 @@
 """
-URL configuration for test_task project.
+URL configuration for settings project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -15,13 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib.auth import views as auth_views  # Импорт встроенных представлений
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ads.urls')),  # Ваши кастомные URL
-    # Добавьте встроенные URL для аутентификации
     path('login/', auth_views.LoginView.as_view(template_name='ads/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='ads/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -8,6 +8,7 @@ urlpatterns = [
     path('ads/<int:ad_id>/edit/', views.edit_ad, name='edit_ad'),
     path('ads/<int:ad_id>/delete/', views.delete_ad, name='delete_ad'),
     path('ads/<int:ad_id>/proposal/', views.send_proposal, name='send_proposal'),
+path('proposal/<int:proposal_id>/accept/', views.accept_proposal, name='accept_proposal'),
     path('ads/proposal/<int:proposal_id>/<str:status>/', views.update_proposal_status, name='update_proposal_status'),
     path('register/', views.register, name='register'),
 ]

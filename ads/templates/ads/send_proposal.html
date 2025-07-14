@@ -2,16 +2,61 @@
 {% block content %}
 <div class="container">
     <h2>Предложить обмен для: {{ ad_receiver.title }}</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label">Ваше объявление для обмена:</label>
-            {{ form.ad_sender }}
+
+    {# Вывод общих ошибок формы (например, валидации на уровне модели) #}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
         </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'send_proposal' ad_id=ad_receiver.id %}">
+        {% csrf_token %}
+
+        {# Вывод ошибок для конкретных полей #}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% if field != '__all__' %}  {# Исключаем non_field_errors #}
+                        {% for error in errors %}
+                            <p><strong>{{ field|title }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group mb-3">
+            <label class="form-label">Ваш товар для обмена:</label>
+            {% if form.ad_sender.field.queryset.exists %}
+                {{ form.ad_sender }}
+                {% if form.ad_sender.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.ad_sender.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <p class="text-danger">У вас нет товаров для обмена!</p>
+                <a href="{% url 'create_ad' %}" class="btn btn-success">Создать объявление</a>
+            {% endif %}
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Комментарий:</label>
             {{ form.comment }}
+            {% if form.comment.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.comment.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
+
         <button type="submit" class="btn btn-success">Отправить</button>
         <a href="{% url 'ad_detail' ad_receiver.id %}" class="btn btn-secondary">Отмена</a>
     </form>

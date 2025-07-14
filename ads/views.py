@@ -7,7 +7,8 @@ from .forms import AdForm, ProposalForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
-
+from django.views.decorators.http import require_POST
+from django.db import transaction
 
 def register(request):
     if request.method == 'POST':
@@ -72,25 +73,37 @@ def ad_detail(request, ad_id):
         'proposals': proposals,
     })
 
+
+
+
 @login_required
 def send_proposal(request, ad_id):
     ad_receiver = get_object_or_404(Ad, id=ad_id)
+
+    if not Ad.objects.filter(user=request.user).exists():
+        messages.error(request, 'У вас нет товаров для обмена!')
+        return redirect('list_ads')
+
     if request.method == 'POST':
         form = ProposalForm(request.POST, user=request.user)
         if form.is_valid():
             proposal = form.save(commit=False)
-            proposal.ad_sender = Ad.objects.get(user=request.user, id=request.POST.get('ad_sender'))
             proposal.ad_receiver = ad_receiver
+            proposal.created_by = request.user
             proposal.save()
             messages.success(request, 'Предложение отправлено!')
             return redirect('ad_detail', ad_id=ad_receiver.id)
     else:
         form = ProposalForm(user=request.user)
-        form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)  # Только свои объявления для обмена
+
     return render(request, 'ads/send_proposal.html', {
         'form': form,
         'ad_receiver': ad_receiver,
     })
+
+
+
+
 
 @login_required
 def update_proposal_status(request, proposal_id, status):
@@ -124,4 +137,44 @@ def list_ads(request):
     return render(request, 'ads/list_ads.html', {
         'page_obj': page_obj,
         'search_query': search_query,
+        'Ad' : Ad
     })
+
+
+@login_required
+@require_POST
+def accept_proposal(request, proposal_id):
+    proposal = get_object_or_404(ExchangeProposal, id=proposal_id)
+
+    if proposal.ad_receiver.user != request.user:
+        messages.error(request, "Вы не можете принять это предложение — вы не владелец товара.")
+        return redirect('ad_detail', ad_id=proposal.ad_receiver.id)
+
+    if proposal.status != 'pending':
+        messages.error(request, "Это предложение уже обработано.")
+        return redirect('ad_detail', ad_id=proposal.ad_receiver.id)
+
+    with transaction.atomic():
+        # Меняем владельцев у товаров
+        ad_sender = proposal.ad_sender
+        ad_receiver = proposal.ad_receiver
+
+        owner_sender = ad_sender.user
+        owner_receiver = ad_receiver.user
+
+        ad_sender.user = owner_receiver
+        ad_receiver.user = owner_sender
+
+        ad_sender.save()
+        ad_receiver.save()
+
+        # Обновляем статус предложения
+        proposal.status = 'accepted'
+        proposal.save()
+
+        # Можно дополнительно отклонить другие предложения на этот товар
+        ExchangeProposal.objects.filter(ad_receiver=ad_receiver).exclude(id=proposal.id).update(status='rejected')
+
+    messages.success(request, "Обмен успешно выполнен!")
+
+    return redirect('ad_detail', ad_id=ad_receiver.id)
