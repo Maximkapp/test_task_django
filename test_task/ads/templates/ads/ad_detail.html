@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="ad-detail-container">
+    <!-- Заголовок и информация о товаре -->
+    <h1>{{ ad.title }}</h1>
+
+    <div class="ad-meta">
+        <span>Категория: {{ ad.get_category_display }}</span> |
+        <span>Состояние: {{ ad.get_condition_display }}</span> |
+        <span>Опубликовано: {{ ad.created_at|date:"d.m.Y" }}</span> |
+        <span>Автор: {{ ad.user.username }}</span>
+    </div>
+
+    <div class="ad-image">
+        {% if ad.image %}
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="img-fluid">
+        {% else %}
+            <div class="no-image">Нет изображения</div>
+        {% endif %}
+    </div>
+
+    <div class="ad-description">
+        <h3>Описание:</h3>
+        <p>{{ ad.description }}</p>
+    </div>
+
+    <!-- Кнопки действий для владельца -->
+    {% if ad.user == request.user %}
+    <div class="owner-actions">
+        <a href="{% url 'edit_ad' ad.id %}" class="btn btn-primary">Редактировать</a>
+        <form action="{% url 'delete_ad' ad.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
+        </form>
+    </div>
+
+    <!-- Список предложений обмена (только для владельца) -->
+    <div class="proposals-section">
+        <h3>Предложения обмена:</h3>
+        {% if proposals %}
+          <div class="proposals-list">
+            {% for proposal in proposals %}
+              <div class="proposal {% if proposal.status == 'accepted' %}accepted{% elif proposal.status == 'rejected' %}rejected{% endif %}">
+                <div class="proposal-header">
+                  <span>От: {{ proposal.ad_sender.user.username }}</span>
+                  <span>Статус: {{ proposal.get_status_display }}</span>
+                </div>
+
+                <div class="proposed-ad">
+                  <h4>Предлагаемый товар:</h4>
+                  <a href="{% url 'ad_detail' proposal.ad_sender.id %}">{{ proposal.ad_sender.title }}</a>
+                  <p>{{ proposal.ad_sender.description|truncatechars:100 }}</p>
+                </div>
+
+                {% if proposal.status == 'pending' %}
+                  <div class="proposal-actions">
+                    <form action="{% url 'accept_proposal' proposal.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-success">Принять</button>
+                    </form>
+
+                    <form action="{% url 'update_proposal_status' proposal.id 'rejected' %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-warning">Отклонить</button>
+                    </form>
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>Пока нет предложений обмена.</p>
+        {% endif %}
+
+    </div>
+
+    {% else %}
+    <!-- Кнопка предложить обмен для других пользователей -->
+    <div class="exchange-action">
+        <a href="{% url 'send_proposal' ad.id %}" class="btn btn-primary">Предложить обмен</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

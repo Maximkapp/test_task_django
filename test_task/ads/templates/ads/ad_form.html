@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>{% if ad %}Редактировать{% else %}Создать{% endif %} объявление</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        {% if ad %}
+            <a href="{% url 'ad_detail' ad.id %}" class="btn btn-secondary">Отмена</a>
+        {% else %}
+            <a href="{% url 'list_ads' %}" class="btn btn-secondary">Отмена</a>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
