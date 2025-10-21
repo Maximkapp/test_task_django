@@ -178,3 +178,20 @@ def accept_proposal(request, proposal_id):
     messages.success(request, "Обмен успешно выполнен!")
 
     return redirect('ad_detail', ad_id=ad_receiver.id)
+
+
+
+def about(request):
+    return render(request, 'ads/about.html')
+
+def rules(request):
+    return render(request, 'ads/rules.html')
+
+def contacts(request):
+    return render(request, 'ads/contacts.html')
+
+def help_page(request):
+    return render(request, 'ads/help.html')
+
+def faq(request):
+    return render(request, 'ads/faq.html')
