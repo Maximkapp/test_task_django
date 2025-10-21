@@ -15,6 +15,5 @@ path('proposal/<int:proposal_id>/accept/', views.accept_proposal, name='accept_p
     path('about/', views.about, name='about'),
     path('rules/', views.rules, name='rules'),
     path('contacts/', views.contacts, name='contacts'),
-    path('help/', views.help_page, name='help'),
     path('faq/', views.faq, name='faq'),
 ]
