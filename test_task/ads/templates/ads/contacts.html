@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Заголовок -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary mb-3">
+                    <i class="fas fa-address-book me-3"></i>Контакты
+                </h1>
+                <p class="lead text-muted">Мы всегда готовы помочь и ответить на ваши вопросы</p>
+            </div>
+
+            <div class="row">
+                <!-- Основная контактная информация -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card shadow-lg border-0 h-100">
+                        <div class="card-header bg-primary text-white py-4">
+                            <h3 class="mb-0"><i class="fas fa-headset me-2"></i>Служба поддержки</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light rounded-circle p-3 me-3">
+                                            <i class="fas fa-envelope fa-2x text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold">Электронная почта</h5>
+                                            <p class="text-muted mb-1">support@barter-system.ru</p>
+                                            <small class="text-success">Ответ в течение 24 часов</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light rounded-circle p-3 me-3">
+                                            <i class="fas fa-phone fa-2x text-success"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold">Телефон</h5>
+                                            <p class="text-muted mb-1">+7 (999) 123-45-67</p>
+                                            <small class="text-info">Пн-Пт с 9:00 до 18:00</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light rounded-circle p-3 me-3">
+                                            <i class="fab fa-telegram fa-2x text-info"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold">Telegram</h5>
+                                            <p class="text-muted mb-1">@barter_support</p>
+                                            <small class="text-primary">Круглосуточно</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light rounded-circle p-3 me-3">
+                                            <i class="fas fa-clock fa-2x text-warning"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold">Время работы</h5>
+                                            <p class="text-muted mb-1">Пн-Пт: 9:00-18:00</p>
+                                            <small class="text-muted">Сб-Вс: техническая поддержка</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статистика ответов -->
+            <div class="row mt-4 text-center">
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body py-3">
+                            <h3 class="text-success mb-1">15 мин</h3>
+                            <p class="text-muted small">Среднее время ответа</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body py-3">
+                            <h3 class="text-warning mb-1">24/7</h3>
+                            <p class="text-muted small">Техническая поддержка</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        transition: transform 0.2s;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .btn {
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+    
+    .btn:hover {
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}
