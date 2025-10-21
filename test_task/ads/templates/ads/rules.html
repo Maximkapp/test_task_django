@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Заголовок -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary mb-3">
+                    <i class="fas fa-gavel me-3"></i>Правила платформы
+                </h1>
+                <p class="lead text-muted">Основные принципы нашего сообщества</p>
+            </div>
+
+            <!-- Основные правила -->
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-header bg-danger text-white py-4">
+                    <h3 class="mb-0"><i class="fas fa-ban me-2"></i>Запрещенные товары</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-times-circle text-danger mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Оружие и боеприпасы</h6>
+                                    <p class="text-muted small">Любое оружие, включая холодное и огнестрельное</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-times-circle text-danger mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Наркотические вещества</h6>
+                                    <p class="text-muted small">Запрещенные препараты и вещества</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-times-circle text-danger mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Краденные вещи</h6>
+                                    <p class="text-muted small">Товары без подтверждения права собственности</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-times-circle text-danger mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Поддельные товары</h6>
+                                    <p class="text-muted small">Контрафактная продукция</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Обязательные правила -->
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-header bg-warning text-dark py-4">
+                    <h3 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Обязательные требования</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Честные описания</h6>
+                                    <p class="text-muted small">Точно описывайте состояние и характеристики товара</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Актуальные фото</h6>
+                                    <p class="text-muted small">Используйте реальные фотографии товара</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Своевременные ответы</h6>
+                                    <p class="text-muted small">Отвечайте на предложения в разумные сроки</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Вежливое общение</h6>
+                                    <p class="text-muted small">Уважайте других пользователей</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Рекомендации -->
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white py-4">
+                    <h3 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Рекомендации для успешного обмена</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-lg-4 mb-3">
+                            <div class="text-center p-3">
+                                <i class="fas fa-camera fa-2x text-primary mb-3"></i>
+                                <h6>Качественные фото</h6>
+                                <p class="text-muted small">Делайте четкие фото со всех сторон</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <div class="text-center p-3">
+                                <i class="fas fa-file-alt fa-2x text-primary mb-3"></i>
+                                <h6>Подробное описание</h6>
+                                <p class="text-muted small">Указывайте все недостатки и особенности</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <div class="text-center p-3">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                                <h6>Безопасные места</h6>
+                                <p class="text-muted small">Встречайтесь в публичных местах</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Предупреждение -->
+            <div class="alert alert-warning mt-4" role="alert">
+                <h5><i class="fas fa-shield-alt me-2"></i>Важная информация</h5>
+                <p class="mb-0">Администрация не несет ответственности за сделки между пользователями. Все обмены осуществляются на ваш страх и риск.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
