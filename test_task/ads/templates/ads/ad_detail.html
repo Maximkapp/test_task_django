@@ -7,14 +7,14 @@
 
     <div class="ad-meta">
         <span>Категория: {{ ad.get_category_display }}</span> |
-        <span>Состояние: {{ ad.get_condition_display }}</span> |
+        <span>Состояние: {{ ad.condition }}</span> |
         <span>Опубликовано: {{ ad.created_at|date:"d.m.Y" }}</span> |
         <span>Автор: {{ ad.user.username }}</span>
     </div>
 
     <div class="ad-image">
-        {% if ad.image %}
-            <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="img-fluid">
+        {% if ad.image_url %}
+            <img src="{{ ad.image_url }}" alt="{{ ad.title }}" class="img-fluid">
         {% else %}
             <div class="no-image">Нет изображения</div>
         {% endif %}
@@ -50,6 +50,9 @@
                 <div class="proposed-ad">
                   <h4>Предлагаемый товар:</h4>
                   <a href="{% url 'ad_detail' proposal.ad_sender.id %}">{{ proposal.ad_sender.title }}</a>
+                  {% if proposal.ad_sender.image_url %}
+                    <img src="{{ proposal.ad_sender.image_url }}" alt="{{ proposal.ad_sender.title }}" style="max-width: 100px;">
+                  {% endif %}
                   <p>{{ proposal.ad_sender.description|truncatechars:100 }}</p>
                 </div>
 
@@ -72,7 +75,6 @@
         {% else %}
           <p>Пока нет предложений обмена.</p>
         {% endif %}
-
     </div>
 
     {% else %}
