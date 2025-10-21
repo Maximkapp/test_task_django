@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Заголовок -->
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-primary mb-3">
+                    <i class="fas fa-question-circle me-2"></i>Частые вопросы
+                </h2>
+                <p class="text-muted">Ответы на самые популярные вопросы</p>
+            </div>
+
+            <!-- Основные вопросы -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="accordion" id="faqAccordion">
+
+                        <!-- Вопрос 1 -->
+                        <div class="accordion-item mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Как создать объявление?
+                                </button>
+                            </h3>
+                            <div id="faq1" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Нажмите "Создать объявление" в меню, заполните информацию о товаре и сохраните.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вопрос 2 -->
+                        <div class="accordion-item mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    Как предложить обмен?
+                                </button>
+                            </h3>
+                            <div id="faq2" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Найдите товар, нажмите "Предложить обмен" и выберите свой товар для обмена.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вопрос 3 -->
+                        <div class="accordion-item mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Это бесплатно?
+                                </button>
+                            </h3>
+                            <div id="faq3" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Да, платформа полностью бесплатна для всех пользователей.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вопрос 4 -->
+                        <div class="accordion-item mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    Как безопасно обмениваться?
+                                </button>
+                            </h3>
+                            <div id="faq5" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Встречайтесь в публичных местах, проверяйте товары перед обменом.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Дополнительная помощь -->
+            <div class="text-center mt-4">
+                <p class="text-muted mb-3">Не нашли ответ? Мы поможем!</p>
+                <a href="{% url 'contacts' %}" class="btn btn-primary">
+                    <i class="fas fa-envelope me-2"></i>Написать в поддержку
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .accordion-button:not(.collapsed) {
+        background-color: #e3f2fd;
+        color: #0d6efd;
+        font-weight: 500;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: #dee2e6;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}
