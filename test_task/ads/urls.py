@@ -11,4 +11,10 @@ urlpatterns = [
 path('proposal/<int:proposal_id>/accept/', views.accept_proposal, name='accept_proposal'),
     path('ads/proposal/<int:proposal_id>/<str:status>/', views.update_proposal_status, name='update_proposal_status'),
     path('register/', views.register, name='register'),
+    # Новые URL для страниц футера
+    path('about/', views.about, name='about'),
+    path('rules/', views.rules, name='rules'),
+    path('contacts/', views.contacts, name='contacts'),
+    path('help/', views.help_page, name='help'),
+    path('faq/', views.faq, name='faq'),
 ]
