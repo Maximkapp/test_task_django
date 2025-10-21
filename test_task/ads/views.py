@@ -190,8 +190,5 @@ def rules(request):
 def contacts(request):
     return render(request, 'ads/contacts.html')
 
-def help_page(request):
-    return render(request, 'ads/help.html')
-
 def faq(request):
     return render(request, 'ads/faq.html')
